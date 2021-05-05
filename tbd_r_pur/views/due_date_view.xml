@@ -6,7 +6,7 @@
             <field name="model">purchase.order</field>
             <field name="inherit_id" ref="purchase.purchase_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//form[1]/sheet/group" position="before">
+                <xpath expr="//form[1]/sheet/group/group[2]//field[1]" position="before">
                     <group>
                         <field name="invoice_ids">
                             <tree>
