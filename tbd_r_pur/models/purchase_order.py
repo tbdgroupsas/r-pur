@@ -12,14 +12,9 @@ class PurchaseReportCustom(models.Model):
     _auto = False
     due_date = fields.Datetime('Due Date', readonly=True)
 
-    def init(self):
-        tools.drop_view_if_exists(self.env.cr, self._table)
-        self.env.cr.execute("""CREATE or REPLACE VIEW %s as (
-                        %s
-                        FROM ( %s )
-                        %s
-                        )""" % (self._table, """
-                        WITH currency_rate as (%s)
+    def _select(self):
+        select_str = """
+        WITH currency_rate as (%s)
                         SELECT
                         po.id as order_id,
                         min(l.id) as id,
@@ -55,8 +50,13 @@ class PurchaseReportCustom(models.Model):
                         else sum(l.qty_received / line_uom.factor * product_uom.factor) - sum(l.qty_invoiced / line_uom.factor * product_uom.factor)
                         end as qty_to_be_billed,
                         am.invoice_date_due as due_date
-                        """ % self.env['res.currency']._select_companies_rates(), """
-                                purchase_order_line l
+        
+        """ % self.env['res.currency']._select_companies_rates()
+        return select_str
+
+    def _from(self):
+        from_str = """
+            purchase_order_line l
                                 join purchase_order po on (l.order_id=po.id)
                                 join res_partner partner on po.partner_id = partner.id
                                 left join product_product p on (l.product_id=p.id)
@@ -70,7 +70,12 @@ class PurchaseReportCustom(models.Model):
                                 (cr.date_end is null or cr.date_end > coalesce(po.date_order, now())))
                                 left join account_move_purchase_order_rel ampor on (l.order_id = ampor.purchase_order_id)
                                 left join account_move am on (ampor.account_move_id = am.id)
-                                """, """GROUP BY
+        """
+        return from_str
+
+    def _group_by(self):
+        group_by_str = """
+             GROUP BY
                 po.company_id,
                 po.user_id,
                 po.partner_id,
@@ -97,4 +102,14 @@ class PurchaseReportCustom(models.Model):
                 partner.commercial_partner_id,
                 analytic_account.id,
                 po.id,
-                am.invoice_date_due"""))
+                am.invoice_date_due
+        """
+        return group_by_str
+
+    def init(self):
+        tools.drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute("""CREATE or REPLACE VIEW %s as (
+                        %s
+                        FROM ( %s )
+                        %s
+                        )""" % (self._table, self._select, self._from(), self._group_by()))
