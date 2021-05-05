@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <xpath expr="//field[@name='origin']" position="after">
+            <group>
+                <field name="invoice_ids">
+                    <tree>
+                        <field name="invoice_date_due"/>
+                    </tree>
+                </field>
+            </group>
+        </xpath>
+    </data>
+</odoo>
