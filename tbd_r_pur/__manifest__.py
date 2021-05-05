@@ -13,7 +13,7 @@
     'website': "https://www.agence-tbd.com",
     'category': '',
     'version': '0.1',
-    'depends': ['base'],
+    'depends': ['base', 'purchase'],
     'data': [
         "views/due_date_view.xml"
     ],
