@@ -51,7 +51,6 @@ class PurchaseReportCustom(models.Model):
                         else sum(l.qty_received / line_uom.factor * product_uom.factor) - sum(l.qty_invoiced / line_uom.factor * product_uom.factor)
                         end as qty_to_be_billed,
                         am.invoice_date_due as due_date
-        
         """ % self.env['res.currency']._select_companies_rates()
         return select_str
 
