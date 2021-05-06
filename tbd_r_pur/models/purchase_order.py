@@ -10,6 +10,7 @@ class PurchaseReportCustom(models.Model):
     _name = 'purchase.report'
     _inherit = 'purchase.report'
     _auto = False
+
     due_date = fields.Datetime('Due Date', readonly=True)
 
     def _select(self):
@@ -57,19 +58,19 @@ class PurchaseReportCustom(models.Model):
     def _from(self):
         from_str = """
             purchase_order_line l
-                                join purchase_order po on (l.order_id=po.id)
-                                join res_partner partner on po.partner_id = partner.id
-                                left join product_product p on (l.product_id=p.id)
-                                left join product_template t on (p.product_tmpl_id=t.id)
-                                left join uom_uom line_uom on (line_uom.id=l.product_uom)
-                                left join uom_uom product_uom on (product_uom.id=t.uom_id)
-                                left join account_analytic_account analytic_account on (l.account_analytic_id = analytic_account.id)
-                                left join currency_rate cr on (cr.currency_id = po.currency_id and
-                                cr.company_id = po.company_id and
-                                cr.date_start <= coalesce(po.date_order, now()) and
-                                (cr.date_end is null or cr.date_end > coalesce(po.date_order, now())))
-                                left join account_move_purchase_order_rel ampor on (l.order_id = ampor.purchase_order_id)
-                                left join account_move am on (ampor.account_move_id = am.id)
+                join purchase_order po on (l.order_id=po.id)
+                join res_partner partner on po.partner_id = partner.id
+                    left join product_product p on (l.product_id=p.id)
+                        left join product_template t on (p.product_tmpl_id=t.id)
+                left join uom_uom line_uom on (line_uom.id=l.product_uom)
+                left join uom_uom product_uom on (product_uom.id=t.uom_id)
+                left join account_analytic_account analytic_account on (l.account_analytic_id = analytic_account.id)
+                left join currency_rate cr on (cr.currency_id = po.currency_id and
+                    cr.company_id = po.company_id and
+                    cr.date_start <= coalesce(po.date_order, now()) and
+                    (cr.date_end is null or cr.date_end > coalesce(po.date_order, now())))
+                left join account_move_purchase_order_rel ampor on (l.order_id = ampor.purchase_order_id)
+                left join account_move am on (ampor.account_move_id = am.id)
         """
         return from_str
 
