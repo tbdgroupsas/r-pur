@@ -10,7 +10,7 @@
                     <group>
                         <field name="invoice_ids">
                             <tree>
-                                <field name="invoice_date_due"/>
+                                <field name="invoice_date_due" readonly="1"/>
                             </tree>
                         </field>
                     </group>
