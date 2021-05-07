@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="purchase_analysis_pivot_view" name="TBD Purchase"
+                   parent="purchase.menu_purchase_root" sequence="3"/>
+    </data>
+</odoo>
+<!--action="purchase_order_form_inherit"-->

@@ -15,7 +15,8 @@
     'version': '0.1',
     'depends': ['base', 'purchase'],
     'data': [
-        "views/due_date_view.xml"
+        "views/due_date_view.xml",
+        "views/purchase_analysis_pivot_view.xml"
     ],
     'application': True,
     'installable': True,
