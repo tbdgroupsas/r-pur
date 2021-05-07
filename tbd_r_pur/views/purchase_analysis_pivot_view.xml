@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <menuitem id="purchase_analysis_pivot_view" name="TBD Purchase"
-            action="purchase.menu_purchase_config" parent="purchase.menu_purchase_root" sequence="3"/>
+        <menuitem id="tbd_purchase_analysis_pivot_view" name="TBD Purchase"
+            parent="purchase.menu_purchase_root" />
     </data>
 </odoo>
