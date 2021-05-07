@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <menuitem id="purchase_analysis_pivot_view" name="TBD Purchase"
-                  action="purchase.purchase_order_form"
+                  action="purchase.menu_purchase_config"
                    parent="purchase.menu_purchase_root" sequence="3"/>
     </data>
 </odoo>
