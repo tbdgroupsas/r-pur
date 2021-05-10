@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': "tbd_r_pur",
-    'sequence': 59,
+    'sequence': 61,
     'summary':
         """
             Module TBD R PUR
