@@ -7,7 +7,6 @@ from odoo.osv.expression import AND, expression
 
 
 class PurchaseReportCustom(models.Model):
-    _name = 'purchase.report'
     _inherit = 'purchase.report'
     _auto = False
 
