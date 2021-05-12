@@ -16,26 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: tbd_r_pur
-#: model:ir.model.fields,field_description:tbd_r_pur.field_purchase_report__display_name
-msgid "Display Name"
-msgstr "Nom affiché"
-
-#. module: tbd_r_pur
 #: model:ir.model.fields,field_description:tbd_r_pur.field_purchase_report__due_date
 msgid "Due Date"
 msgstr "Date d’échéance"
 
-#. module: tbd_r_pur
-#: model:ir.model.fields,field_description:tbd_r_pur.field_purchase_report__id
-msgid "ID"
-msgstr "ID"
 
-#. module: tbd_r_pur
-#: model:ir.model.fields,field_description:tbd_r_pur.field_purchase_report____last_update
-msgid "Last Modified on"
-msgstr "Dernière modification le"
-
-#. module: tbd_r_pur
-#: model:ir.model,name:tbd_r_pur.model_purchase_report
-msgid "Purchase Report"
-msgstr "Rapport d'achat"
