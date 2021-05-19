@@ -16,8 +16,8 @@ class PurchaseReportCustom(models.Model):
         return super(PurchaseReportCustom, self)._select() + ", am.invoice_date_due as due_date"
 
     def _from(self):
-        return super(PurchaseReportCustom, self)._from() + " left join account_move_purchase_order_rel ampor on (po.id = ampor.purchase_order_id) \
-                left join account_move am on (ampor.account_move_id = am.id) "
+        return super(PurchaseReportCustom, self)._from() + " left join account_move_purchase_order_rel ampor on (l.order_id = ampor.purchase_order_id) \
+                left join account_move am on (ampor.account_move_id = am.id)"
 
     def _group_by(self):
         return super(PurchaseReportCustom, self)._group_by() + ", am.invoice_date_due"
