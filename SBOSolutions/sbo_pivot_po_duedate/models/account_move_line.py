@@ -22,4 +22,3 @@ class AccountMoveLine(models.Model):
     def _compute_invoice_date_due(self):
         for record in self:
             record.invoice_date_due = record.move_id.invoice_date_due
-
