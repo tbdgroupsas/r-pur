@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<!-- MENU -->
+<!-- ACTIONS -->
+<record id="due_date_po_account_move_line_action" model="ir.actions.act_window">
+    <field name="name">PO DueDate FollowUp</field>
+    <field name="res_model">account.move.line</field>
+    <field name="view_mode">pivot,tree</field>
+    <field name="domain">[('move_id.payment_state','!=','paid'),('product_category','!=',False),('purchase_order_id','!=',False)]</field>
+    <field name="context">{
+        'pivot_view_ref': 'sbo_pivot_po_duedate.sbo_account_move_line_view_pivot',
+        'tree_view_ref': 'sbo_pivot_po_duedate.sbo_account_move_line_view_tree'
+
+    }</field>
+</record>
+
+<!--In purchase menu-->
+
+  <record id="purchase.purchase_report" model="ir.ui.menu">
+    <field name="action" ref="purchase_enterprise.purchase_report_action_dashboard"/>
+    <field name="active" eval="False"/>
+    <field name="groups_id" eval="[(6, 0, [ref('purchase.group_purchase_manager')])]"/>
+    <field name="name">Reporting</field>
+    <field name="parent_id" ref="purchase.menu_purchase_root"/>
+    <field name="sequence">99</field>
+    <field name="web_icon" eval="False"/>
+  </record>
+
+
+
+    <menuitem id="purchase_report" name="Reporting" 
+    parent="purchase.menu_purchase_root" sequence="99" groups="purchase.group_purchase_manager"/>
+
+    <menuitem id="purchase_report_action" name="Reporting" 
+    parent="purchase_report" sequence="10" action="purchase_enterprise.purchase_report_action_dashboard"/>
+
+    <menuitem id="menu_procurement_management_po_line" name="DueDateStat"
+            parent="purchase_report"
+            action="due_date_po_account_move_line_action" sequence="20"/>
+<!-- VIEWS -->
+
+<!-- account.move.line tree view -->
+<record id="sbo_account_move_line_view_tree" model="ir.ui.view">
+    <field name="name">account.move.line.view.tree</field>
+    <field name="model">account.move.line</field>
+    <field name="arch" type="xml">
+    
+        <tree>
+            <field name="purchase_order_id"/>
+            <field name="product_id"/>
+            <field name="product_category"/>
+            <field name="invoice_date_due"/>
+            <field name="debit"/>
+        </tree>
+    </field>
+</record>
+
+
+
+<!-- pivot view -->
+<record id="sbo_account_move_line_view_pivot" model="ir.ui.view">
+    <field name="name">account.move.line.view.pivot</field>
+    <field name="model">account.move.line</field>
+    <field name="arch" type="xml">
+        <pivot string="PO DueDate FollowUp">
+            <field name="product_category" type="row"/>
+            <field name="invoice_date_due" type="col" interval="day"/>
+            <field name="balance" type="measure"/>
+        </pivot>
+    </field>
+</record>
+
+
+<!-- account.move.line inherit form view -->
+<record id="sbo_account_move_line_inherit_view_form" model="ir.ui.view">
+    <field name="name">account.move.line.inherit.view.form</field>
+    <field name="model">account.move.line</field>
+    <field name="inherit_id" ref="account.view_move_line_form"/>
+    <field name="arch" type="xml">
+        <!-- Add your xpath here -->
+        <xpath expr="//field[@name='name']" position="after">
+            <!-- Add your fields here -->
+            <field name="purchase_order_id"/>
+        </xpath>
+    </field>
+</record>
+
+
+</odoo>
+
+
