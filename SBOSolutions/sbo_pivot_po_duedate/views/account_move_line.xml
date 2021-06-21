@@ -51,7 +51,6 @@
             <field name="product_id"/>
             <field name="product_category"/>
             <field name="invoice_date_due"/>
-            <field name="quantity"/>
             <field name="debit"/>
         </tree>
     </field>
@@ -67,7 +66,6 @@
         <pivot string="PO DueDate FollowUp">
             <field name="product_category" type="row"/>
             <field name="invoice_date_due" type="col" interval="day"/>
-            <field name="quantity" type="measure"/>
             <field name="balance" type="measure"/>
         </pivot>
     </field>
