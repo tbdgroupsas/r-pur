@@ -1,0 +1,4 @@
+[submodule "sbosolutions/r-pur"]
+	path = sbosolutions/r-pur
+	url = git@github.com:SBOSolutions/r-pur.git
+	branch = 14.0
